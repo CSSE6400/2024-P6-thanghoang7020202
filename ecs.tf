@@ -57,6 +57,13 @@ resource "aws_ecs_service" "taskoverflow" {
     assign_public_ip    = true
   }
 
+  # add load balancer
+  load_balancer { 
+    target_group_arn = aws_lb_target_group.todo.arn 
+    container_name   = "todo" 
+    container_port   = 6400 
+  }
+
 }
 
 resource "aws_security_group" "todo" {
@@ -84,3 +91,4 @@ resource "aws_security_group" "todo" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
